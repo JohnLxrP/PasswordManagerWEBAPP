@@ -1,0 +1,34 @@
+﻿@model PasswordManagerWEBAPP.Models.Passwordmngr
+
+@{
+    ViewData["Title"] = "Edit Password";
+}
+
+<h2>Edit Password</h2>
+
+@using (Html.BeginForm("Edit", "PasswordManager", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Accountr)
+        @Html.TextBoxFor(m => m.Accountr, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Accountr, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Passwordr)
+        @Html.TextBoxFor(m => m.Passwordr, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Passwordr, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+    </div>
+
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-primary">Update</button>
+}
