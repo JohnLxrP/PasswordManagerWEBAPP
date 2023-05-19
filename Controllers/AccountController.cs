@@ -6,7 +6,7 @@ namespace PasswordManagerWEBAPP.Controllers
 {
     public class AccountController : Controller
     {
-        public IAccountRepository _repo { get; }
+        private readonly IAccountRepository _repo;
 
         public AccountController(IAccountRepository repo)
         {
@@ -18,6 +18,7 @@ namespace PasswordManagerWEBAPP.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserViewModel userViewModel)
         {
@@ -34,7 +35,8 @@ namespace PasswordManagerWEBAPP.Controllers
                 var result = await _repo.SignUpUserAsync(userModel);
                 if (result)
                 {
-                    return RedirectToAction("login");
+                    TempData["RegistrationSuccess"] = "Registration successful! You can now log in.";
+                    return RedirectToAction("Login");
                 }
             }
             return View(userViewModel);
@@ -45,21 +47,20 @@ namespace PasswordManagerWEBAPP.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
-                // login activity -> cookie [Roles and Claims]
                 var result = await _repo.SignInUserAsync(userViewModel);
-                //login cookie and transfter to the client 
                 if (result is not null)
                 {
-                    // add token to session 
                     HttpContext.Session.SetString("JWToken", result);
+                    TempData["LoginSuccess"] = "Login successful!";
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "invalid login credentials");
+                ModelState.AddModelError(string.Empty, "Invalid login credentials");
             }
             return View(userViewModel);
         }
@@ -67,7 +68,8 @@ namespace PasswordManagerWEBAPP.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            //await _signInManager.SignOutAsync();
+            // Add your logout logic here if necessary
+            TempData["LogoutSuccess"] = "You have been successfully logged out.";
             return RedirectToAction("Login");
         }
     }

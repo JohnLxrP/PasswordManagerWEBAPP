@@ -26,12 +26,9 @@
                     <td>@passwordmngr.Passwordr</td>
                     <td>@passwordmngr.Description</td>
                     <td>
-                        <a href="@Url.Action("Edit", new { id = passwordmngr.Id })">Edit</a>
-                    </td>
-                    <td>
                         <form action="@Url.Action("Delete", new { passwordmngrId = passwordmngr.Id })" method="post">
                             @Html.AntiForgeryToken()
-                            <button type="submit">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -45,5 +42,6 @@ else
 }
 
 <div>
-    <a href="@Url.Action("Create")">Create New Password</a>
+    <a href="@Url.Action("Create")" class="btn btn-info">Add new account.</a>
 </div>
+

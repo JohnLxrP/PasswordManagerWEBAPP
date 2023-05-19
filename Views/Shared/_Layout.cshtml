@@ -34,6 +34,27 @@
         </nav>
     </header>
     <div class="container">
+        @if (TempData["RegistrationSuccess"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["RegistrationSuccess"]
+            </div>
+        }
+
+        @if (TempData["LoginSuccess"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["LoginSuccess"]
+            </div>
+        }
+
+        @if (TempData["LogoutSuccess"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["LogoutSuccess"]
+            </div>
+        }
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -50,3 +71,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
