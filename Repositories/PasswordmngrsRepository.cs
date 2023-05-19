@@ -36,15 +36,19 @@ public class PasswordmngrsRepository : IPasswordmngrsRepository
         return null;
     }
 
-    public async Task DeletePasswordmngr(int passwordmngrId)
+public async Task DeletePasswordmngr(int passwordmngrId, string token)
+{
+    _httpClient.DefaultRequestHeaders.Clear();
+    _httpClient.DefaultRequestHeaders.Add("ApiKey", _configs.GetValue<string>("ApiKey"));
+    _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+    var response = await _httpClient.DeleteAsync($"/passwordmngrs/{passwordmngrId}");
+    if (response.IsSuccessStatusCode)
     {
-        var response = await _httpClient.DeleteAsync($"/passwordmngrs/{passwordmngrId}");
-        if (response.IsSuccessStatusCode)
-        {
-            var data = await response.Content.ReadAsByteArrayAsync();
-            Console.WriteLine("Delete Password Response: ", data);
-        }
+        var data = await response.Content.ReadAsByteArrayAsync();
+        Console.WriteLine("Delete Password Response: ", data);
     }
+}
 
     public async Task<List<Passwordmngr>> GetAllPasswordmngrs(string token)
     {

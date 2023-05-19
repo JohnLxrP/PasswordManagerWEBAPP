@@ -63,9 +63,9 @@ public class PasswordManagerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Delete(int passwordmngrId)
+    public async Task<IActionResult> Delete(int passwordmngrId, string token)
     {
-        await _passwordmngrsRepository.DeletePasswordmngr(passwordmngrId);
+        await _passwordmngrsRepository.DeletePasswordmngr(passwordmngrId, token);
         return RedirectToAction("Index");
     }
 
