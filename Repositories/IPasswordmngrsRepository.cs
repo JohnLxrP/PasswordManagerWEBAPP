@@ -8,6 +8,6 @@ public interface IPasswordmngrsRepository
     Task<Passwordmngr?> GetPasswordmngrById(int PasswordmngrId);
     Task<Passwordmngr?> CreatePasswordmngr(Passwordmngr newPasswordmngr);
     Task DeletePasswordmngr(int passwordmngrId, string token);
-    Task<Passwordmngr?> UpdatePasswordmngr(int passwordmngrId, Passwordmngr updatedPasswordmngr);
+    Task<Passwordmngr?> UpdatePasswordmngr(int passwordmngrId, Passwordmngr updatedPasswordmngr, string token);
     //Task GetAllPasswordmngrs(Passwordmngr newPasswordmngr);
 }

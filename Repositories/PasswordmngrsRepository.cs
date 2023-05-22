@@ -79,8 +79,12 @@ public async Task DeletePasswordmngr(int passwordmngrId, string token)
         return null;
     }
 
-    public async Task<Passwordmngr?> UpdatePasswordmngr(int passwordmngrId, Passwordmngr updatedPasswordmngr)
+    public async Task<Passwordmngr?> UpdatePasswordmngr(int passwordmngrId, Passwordmngr updatedPasswordmngr, string token)
     {
+        _httpClient.DefaultRequestHeaders.Clear();
+        _httpClient.DefaultRequestHeaders.Add("ApiKey", _configs.GetValue<string>("ApiKey"));
+        _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
         var newPasswordmngrAsString = JsonConvert.SerializeObject(updatedPasswordmngr);
         var responseBody = new StringContent(newPasswordmngrAsString, Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync($"/passwordmngrs/{passwordmngrId}", responseBody);

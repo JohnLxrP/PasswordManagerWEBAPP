@@ -56,9 +56,9 @@ public class PasswordManagerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(Passwordmngr updatedPasswordmngr)
+    public async Task<IActionResult> Edit(Passwordmngr updatedPasswordmngr, string token)
     {
-        var test = await _passwordmngrsRepository.UpdatePasswordmngr(updatedPasswordmngr.Id, updatedPasswordmngr);
+        var test = await _passwordmngrsRepository.UpdatePasswordmngr(updatedPasswordmngr.Id, updatedPasswordmngr, token);
         return RedirectToAction("Index");
     }
 

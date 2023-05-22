@@ -16,6 +16,7 @@
                 <th>Description</th>
                 <th></th>
                 <th></th>
+                <th></th> <!-- Add an additional table header for the Edit button -->
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,9 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
+                    @*<td>
+                        <a href="@Url.Action("Edit", new { passwordmngrId = passwordmngr.Id })" class="btn btn-primary">Edit</a>
+                    </td>*@
                 </tr>
             }
         </tbody>
